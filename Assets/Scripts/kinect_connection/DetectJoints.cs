@@ -8,6 +8,8 @@ public class DetectJoints : MonoBehaviour {
 
 	public JointType TrackedJoint; //enum for tracking
 
+    public Vector3 objectPosition;
+
 	private BodySourceManager bodyManager;
 
 	private Body[] bodies; //array of people
@@ -41,8 +43,12 @@ public class DetectJoints : MonoBehaviour {
 
 			if (body.IsTracked) {
 				var pos = body.Joints [TrackedJoint].Position;
-				gameObject.transform.position = new Vector3 (0, 0,-pos.X*multiplier); 
-			}
+
+                Vector3 newPos = new Vector3(0, 0, -pos.X * multiplier);
+                gameObject.transform.position = newPos;
+                objectPosition = newPos;
+                
+            }
 		}
 
 	}
