@@ -4,10 +4,10 @@ using System.Collections;
 public class fishGeneration : MonoBehaviour {
 
 	public GameObject prefab;
-	public float minX = -3.0f;
-	public float maxX = 3.0f;
-	public float minZ = -3.0f;
-	public float maxZ = 3.0f;
+	public float minX = 10.0f;
+	public float maxX = 12.0f;
+	public float minZ = -1f;
+	public float maxZ = 1f;
 	public float minWaitTime = 2.0f;
 	public float maxWaitTime = 4.0f;
 	public float minScale = 0.005f;
@@ -20,7 +20,7 @@ public class fishGeneration : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		levelCompleted = false;
-		StartCoroutine(generateRandomStone());
+		StartCoroutine(generateRandomFish());
 		fishRigid = GetComponent<Rigidbody> ();
 	}
 
@@ -37,13 +37,13 @@ public class fishGeneration : MonoBehaviour {
 		fishRigid.MovePosition (vector);
 	}
 
-	IEnumerator generateRandomStone() {
+	IEnumerator generateRandomFish() {
 		while (!levelCompleted) {
 			float waitTime = Random.Range (minWaitTime, maxWaitTime);
 			yield return new WaitForSeconds (waitTime);
 			Vector3 position = new Vector3 (Random.Range (minX, maxX), 0.0f, Random.Range (minZ, maxZ));
 			//Debug.Log(position);
-			GameObject newStone = (GameObject)Instantiate (prefab, position, Quaternion.identity);
+			GameObject newStone = (GameObject)Instantiate (prefab, position, Quaternion.Euler(new Vector3(0, -90, 0)));
 		}
 	}
 }

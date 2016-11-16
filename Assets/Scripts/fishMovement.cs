@@ -3,7 +3,7 @@ using System.Collections;
 
 public class fishMovement : MonoBehaviour {
 	
-	public float speed = .6f;
+	public float speed = 106f;
 
 	Vector3 posi;
 	Animator anim;
@@ -16,10 +16,41 @@ public class fishMovement : MonoBehaviour {
 
 	bool moveFish = true;
 	bool insideBounds = false;
+	bool facingUp;
+
+	void Start()
+	{
+		anim = GetComponent<Animator> ();
+		fishRigid = GetComponent<Rigidbody> ();
+		facingUp = true;
+		StartCoroutine(moveFish2());
+	}
+
+	IEnumerator moveFish2() {
+		while (transform.position.x > -2) {
+			//Debug.Log("facingUp = " + facingUp);
+			//Debug.Log("Y = " + transform.position.y);
+			yield return new WaitForSeconds(0.01f);
+			if (facingUp) {
+				transform.Rotate(new Vector3(1,0,0), Space.Self);
+				transform.Translate(new Vector3(-1,1,0) * Time.deltaTime * speed, Space.World);
+				if (transform.position.y >= 1) {
+					facingUp = false;
+				}
+			} else {
+				transform.Rotate(new Vector3(-1,0,0), Space.Self);
+				transform.Translate (new Vector3(-1,-1,0) * Time.deltaTime * speed, Space.World);
+				if (transform.position.y <= -0.25) {
+					facingUp = true;
+				}
+			}
+		}
+		//Destroy(this.gameObject);
+	}
 
 	void Update()
 	{
-		if(!IsInsideTheBounds()){
+		/*if(!IsInsideTheBounds()){
 			if(insideBounds){
 				insideBounds = false;
 				transform.Rotate(new Vector3(0,0,-150));
@@ -32,7 +63,7 @@ public class fishMovement : MonoBehaviour {
 			//Vector3 vec = new Vector3 (Random.Range (minX, maxX), Random.Range (-2.0f, 3.0f), 0.0f);
 			transform.Translate (Vector3.forward * Time.deltaTime * speed);
 			ChangeDirection ();
-		}
+		}*/
 	}
 
 	void ChangeDirection(){
@@ -40,7 +71,7 @@ public class fishMovement : MonoBehaviour {
 		{
 			Debug.Log("IsInsideTheBounds true");
 			insideBounds = true;
-			transform.Rotate(new Vector3(10,10,10), Space.World);
+			transform.Rotate(new Vector3(10,0,0), Space.Self);
 
 		}
 		Invoke("ChangeDirection",10f);
@@ -61,11 +92,7 @@ public class fishMovement : MonoBehaviour {
 		insideBounds = true;
 	}
 
-	void Start()
-	{
-		anim = GetComponent<Animator> ();
-		fishRigid = GetComponent<Rigidbody> ();
-	}
+
 
 	void FixedUpdate()//call on every physics update
 	{
