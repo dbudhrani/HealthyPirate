@@ -50,7 +50,7 @@ public class PresicionController : MonoBehaviour {
         //presicionLinePos.x = presicionLinePos.x + boatScript.objectPosition.z;
         float value = boatScript.objectPosition.z;
         presicionLinePos.x = -remap(value, boatFrom, boatTo, barFrom, barTo);
-        Debug.Log(remap(value, boatFrom, boatTo, barFrom, barTo));
+        //Debug.Log(remap(value, boatFrom, boatTo, barFrom, barTo));
         gameObject.GetComponent<RectTransform>().anchoredPosition = presicionLinePos;
 
     }
