@@ -57,13 +57,16 @@
      <Compile Include="Assets\KinectView\Scripts\MultiSourceManager.cs" />
      <Compile Include="Assets\MoveBoat.cs" />
      <Compile Include="Assets\Scripts\BoatCollision.cs" />
-     <Compile Include="Assets\Scripts\DetectJoints.cs" />
      <Compile Include="Assets\Scripts\Float.cs" />
      <Compile Include="Assets\Scripts\MainScript.cs" />
      <Compile Include="Assets\Scripts\StoneGeneration.cs" />
      <Compile Include="Assets\Scripts\StoneTranslation.cs" />
      <Compile Include="Assets\Scripts\fishGeneration.cs" />
      <Compile Include="Assets\Scripts\fishMovement.cs" />
+     <Compile Include="Assets\Scripts\kinect_connection\DetectJoints.cs" />
+     <Compile Include="Assets\Scripts\kinect_connection\PresicionController.cs" />
+     <Compile Include="Assets\TreeGeneration.cs" />
+     <Compile Include="Assets\TreeMovement.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
