@@ -15,14 +15,14 @@ public class StoneGeneration : MonoBehaviour {
 
 	private bool levelCompleted;
 	private int counter;
+	private MainScript ms;
 
-	// Use this for initialization
 	void Start () {
 		levelCompleted = false;
+		ms = GetComponent<MainScript>();
 		StartCoroutine(generateRandomStone());
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
 	}
@@ -36,6 +36,7 @@ public class StoneGeneration : MonoBehaviour {
 			GameObject newStone = (GameObject) Instantiate(prefab, position, Quaternion.identity);
 			float stoneScale = Random.Range(minScale, maxScale);
 			newStone.transform.localScale = new Vector3(stoneScale, stoneScale, stoneScale);
+			ms.incrementTotalNumberStones();
 		}
 	}
 }

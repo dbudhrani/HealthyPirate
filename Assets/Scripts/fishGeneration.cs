@@ -17,24 +17,17 @@ public class fishGeneration : MonoBehaviour {
 	private int counter;
 
 	private Rigidbody fishRigid;
-	// Use this for initialization
+	private MainScript ms;
+
 	void Start () {
 		levelCompleted = false;
+		fishRigid = GetComponent<Rigidbody>();
+		ms = GetComponent<MainScript>();
 		StartCoroutine(generateRandomFish());
-		fishRigid = GetComponent<Rigidbody> ();
 	}
 
-	// Update is called once per frame
 	void Update () {
 
-	}
-
-	void Move()
-	{
-		float randomY  = Random.Range(-3, 4);
-		Vector3 vector = new Vector3 (0f, randomY, 0f);
-		//transform.Translate(Vector3.left * speed * Time.deltaTime);
-		fishRigid.MovePosition (vector);
 	}
 
 	IEnumerator generateRandomFish() {
@@ -42,8 +35,8 @@ public class fishGeneration : MonoBehaviour {
 			float waitTime = Random.Range (minWaitTime, maxWaitTime);
 			yield return new WaitForSeconds (waitTime);
 			Vector3 position = new Vector3 (Random.Range (minX, maxX), 0.0f, Random.Range (minZ, maxZ));
-			//Debug.Log(position);
-			GameObject newStone = (GameObject)Instantiate (prefab, position, Quaternion.Euler(new Vector3(0, -90, 0)));
+			GameObject newFish = (GameObject)Instantiate (prefab, position, Quaternion.Euler(new Vector3(0, -90, 0)));
+			ms.incrementTotalNumberFishes();
 		}
 	}
 }

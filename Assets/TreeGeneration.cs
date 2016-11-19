@@ -14,10 +14,12 @@ public class TreeGeneration : MonoBehaviour {
 	public float distanceBetweenTrees = 15f;
 
 	private bool levelCompleted;
+	private MainScript ms;
 
 	void Start () {
 		levelCompleted = false;
 		int numTrees = Random.Range(minTrees, maxTrees);
+		ms = GetComponent<MainScript>();
 		StartCoroutine(generateRandomTrees(numTrees));
 	}
 	
@@ -47,6 +49,7 @@ public class TreeGeneration : MonoBehaviour {
 				GameObject newTree = (GameObject)Instantiate (prefab, newTreePosition, Quaternion.Euler(new Vector3(-30, 0, 0)));
 				newTree.transform.localScale = new Vector3(treeScale, treeScale, treeScale);
 				treesCreated++;	
+				ms.incrementTotalNumberTrees();
 			}
 		}
 	}

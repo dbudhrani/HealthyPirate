@@ -13,10 +13,26 @@ public class MainScript : MonoBehaviour {
 	private StoneGeneration sgScript;
 	private TreeGeneration tgScript;
 
+	private int numFishes;
+	private int numStones;
+	private int numTrees;
+
+	private int capturedFishes;
+	private int collidedStones;
+	private int collidedTrees;
+
 	// Use this for initialization
 	void Start () {
 
 		Debug.Log("Level = " + level);
+
+		numFishes = 0;
+		numStones = 0;
+		numTrees = 0;
+
+		capturedFishes = 0;
+		collidedStones = 0;
+		collidedTrees = 0;
 
 		fgScript = GetComponent<fishGeneration>();
 		sgScript = GetComponent<StoneGeneration>();
@@ -56,6 +72,54 @@ public class MainScript : MonoBehaviour {
 	void disableTrees() {
 		tgScript.enabled = false;
 		Destroy(tree.gameObject);
+	}
+
+	public void incrementTotalNumberFishes() {
+		numFishes++;
+	}
+
+	public void incrementCapturedNumberFishes() {
+		capturedFishes++;
+	}
+
+	public void incrementTotalNumberStones() {
+		numStones++;
+	}
+
+	public void incrementCollidedNumberStones() {
+		collidedStones++;
+	}
+
+	public void incrementTotalNumberTrees() {
+		numTrees++;
+	}
+
+	public void incrementCollidedNumberTrees() {
+		collidedTrees++;
+	}
+
+	public int getTotalNumberFishes() {
+		return numFishes;
+	}
+
+	public int getCapturedNumberFishes() {
+		return capturedFishes;
+	}
+
+	public int getTotalNumberStones() {
+		return numStones;
+	}
+
+	public int getCollidedNumberStones() {
+		return collidedStones;
+	}
+
+	public int getTotalNumberTrees() {
+		return numTrees;
+	}
+
+	public int getCollidedNumberTrees() {
+		return collidedTrees;
 	}
 
 }
