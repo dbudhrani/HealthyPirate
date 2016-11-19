@@ -11,7 +11,7 @@ public class BoatCollision : MonoBehaviour {
 		if (col.gameObject.name == "cruscarp(Clone)" || col.gameObject.name == "cruscarp") {
 			Debug.Log("Genius, I got a fish!");
 		}
-		if (col.gameObject.name == "Trunk") {
+		if (col.gameObject.name == "Tree(Clone)" || col.gameObject.name == "Tree") {
 			Debug.Log("I crashed with a tree!");
 		}
 	}
