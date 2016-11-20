@@ -33,7 +33,8 @@ public class MoveBoat : MonoBehaviour {
 			transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, jumpHeight, transform.position.z), 0.75f);
 
 		} else {
-			transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 0, transform.position.z), 0.75f);
+            //Uncomment if want to move boat back after jumping
+            //transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 0, transform.position.z), 0.75f);
 		}
 	}
 }
