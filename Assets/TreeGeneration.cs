@@ -14,10 +14,12 @@ public class TreeGeneration : MonoBehaviour {
 	public float distanceBetweenTrees = 15f;
 
 	private bool levelCompleted;
+	private bool includeCognitiveChallenge;
 	private MainScript ms;
 
 	void Start () {
 		levelCompleted = false;
+		includeCognitiveChallenge = true;
 		int numTrees = Random.Range(minTrees, maxTrees);
 		ms = GetComponent<MainScript>();
 		StartCoroutine(generateRandomTrees(numTrees));
@@ -25,16 +27,6 @@ public class TreeGeneration : MonoBehaviour {
 	
 	void Update () {
 
-	}
-
-	IEnumerator generateRandomTree() {
-		while (!levelCompleted) {
-			float waitTime = Random.Range(minWaitTime, maxWaitTime);
-			yield return new WaitForSeconds (waitTime);
-			Vector3 position = new Vector3 (Random.Range (minX, maxX), 0.0f, 0.541536f);
-			GameObject newTree = (GameObject)Instantiate (prefab, position, Quaternion.Euler(new Vector3(-30, 0, 0)));
-			newTree.transform.localScale = new Vector3(treeScale, treeScale, treeScale);
-		}
 	}
 
 	IEnumerator generateRandomTrees(int qty) {
@@ -46,7 +38,13 @@ public class TreeGeneration : MonoBehaviour {
 			while (treesCreated < qty) {
 				yield return new WaitForSeconds (2);
 				Vector3 newTreePosition = new Vector3(basePosition.x + (treesCreated * distanceBetweenTrees), basePosition.y, basePosition.z);
-				GameObject newTree = (GameObject)Instantiate (prefab, newTreePosition, Quaternion.Euler(new Vector3(-30, 0, 0)));
+				Quaternion qtn;
+				if (includeCognitiveChallenge && Random.Range(0.0f, 2.0f) > 1.0f) {
+					qtn = Quaternion.Euler(new Vector3(250, 0, 180));
+				} else {
+					qtn = Quaternion.Euler(new Vector3(-30, 0, 0));
+				}
+				GameObject newTree = (GameObject)Instantiate (prefab, newTreePosition, qtn);
 				newTree.transform.localScale = new Vector3(treeScale, treeScale, treeScale);
 				treesCreated++;	
 				ms.incrementTotalNumberTrees();

@@ -10,7 +10,7 @@ public class TreeMovement : MonoBehaviour {
 	}
 	
 	void Update () {
-		transform.Translate(Vector3.left * speed * Time.deltaTime);
+		transform.Translate(Vector3.left * speed * Time.deltaTime, Space.World);
 	}
 
 
