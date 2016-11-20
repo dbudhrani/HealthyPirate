@@ -10,13 +10,38 @@ public class DetectJoints : MonoBehaviour {
 
     public Vector3 objectPosition;
 
+    public Vector3 jumpPosition;
+
 	private BodySourceManager bodyManager;
+
+    public bool detectSides = false;
+    public bool detectJump = false;
+
+    private int levelSelected;
 
 	private Body[] bodies; //array of people
 
 	public float multiplier = 10f;
 
-	void Start () {
+    //jump params
+    public float jumpMultiplier = 5f;
+
+    private float jumpMin = 0.3f; //use this for calibration of the jump
+
+    private float newValJump = 0;
+
+    void Start () {
+
+        if (PlayerPrefs.GetInt("levelSelected") == 0)
+        {
+            levelSelected = 1;
+        }
+        else {
+            levelSelected = PlayerPrefs.GetInt("levelSelected");
+        }
+
+        
+
 		if (BodySrcManager == null) {
 			Debug.Log ("Assign tame object with body source manager");
 		} else {
@@ -42,14 +67,35 @@ public class DetectJoints : MonoBehaviour {
 			}
 
 			if (body.IsTracked) {
-				var pos = body.Joints [TrackedJoint].Position;
+                if (levelSelected == 1 && detectSides) {
+                  
+                    var pos = body.Joints[TrackedJoint].Position;
+                    //upper body is selected
+                    Vector3 newPos = new Vector3(0, 0, -pos.X * multiplier);
+                    gameObject.transform.position = newPos;
+                    objectPosition = newPos;
+                }
 
-                Vector3 newPos = new Vector3(0, 0, -pos.X * multiplier);
-                gameObject.transform.position = newPos;
-                objectPosition = newPos;
-                
-            }
-		}
+                //jump mode
+                if(levelSelected == 2 && detectJump)
+                {
+                    var pos = body.Joints[TrackedJoint].Position;
+                    Debug.Log(-pos.Y);
 
+                    if (-pos.Y < jumpMin)
+                    {
+                        newValJump = 1f;
+                    }
+                    else {
+                        newValJump = 0f;
+                    }
+                        
+                    Vector3 newPos = new Vector3(0, newValJump, 0);
+                    gameObject.transform.position = newPos;
+                }
+
+
+               }     
+        }
 	}
 }
