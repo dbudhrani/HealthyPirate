@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MainScript : MonoBehaviour {
 
@@ -24,6 +25,7 @@ public class MainScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        setLevel();
 		Debug.Log("Level = " + level);
 
 		numFishes = 0;
@@ -53,11 +55,15 @@ public class MainScript : MonoBehaviour {
 				break;
 		}
 
-        Debug.Log("kukujaku" +  PlayerPrefs.GetInt("levelSelected"));
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void setLevel()
+    {
+        level = PlayerPrefs.GetInt("levelSelected");
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 
