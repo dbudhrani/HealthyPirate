@@ -30,7 +30,7 @@ public class fishMovement : MonoBehaviour {
 		while (transform.position.x > -2) {
 			//Debug.Log("facingUp = " + facingUp);
 			//Debug.Log("Y = " + transform.position.y);
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.01f);
 			if (facingUp) {
 				transform.Rotate(new Vector3(1,0,0), Space.Self);
 				transform.Translate(new Vector3(-1,1,0) * Time.deltaTime * speed, Space.World);

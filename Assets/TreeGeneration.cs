@@ -37,12 +37,14 @@ public class TreeGeneration : MonoBehaviour {
 			Vector3 basePosition = new Vector3 (Random.Range (minX, maxX), 0.0f, 0.541536f);
 			while (treesCreated < qty) {
 				yield return new WaitForSeconds (2);
-				Vector3 newTreePosition = new Vector3(basePosition.x + (treesCreated * distanceBetweenTrees), basePosition.y, basePosition.z);
+				Vector3 newTreePosition;
 				Quaternion qtn;
 				if (includeCognitiveChallenge && Random.Range(0.0f, 2.0f) > 1.0f) {
-					qtn = Quaternion.Euler(new Vector3(250, 0, 180));
+					qtn = Quaternion.Euler(new Vector3(220, 0, 180));
+					newTreePosition = new Vector3(basePosition.x + (treesCreated * distanceBetweenTrees), basePosition.y, 0f);
 				} else {
 					qtn = Quaternion.Euler(new Vector3(-30, 0, 0));
+					newTreePosition = new Vector3(basePosition.x + (treesCreated * distanceBetweenTrees), basePosition.y, basePosition.z);
 				}
 				GameObject newTree = (GameObject)Instantiate (prefab, newTreePosition, qtn);
 				newTree.transform.localScale = new Vector3(treeScale, treeScale, treeScale);

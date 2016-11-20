@@ -4,6 +4,7 @@ using System.Collections;
 public class MoveBoat : MonoBehaviour {
 
 	public float speed = 10f;
+	public float jumpHeight = 3.5f;
 	private Rigidbody boat;
 
 	// Use this for initialization
@@ -29,10 +30,10 @@ public class MoveBoat : MonoBehaviour {
 		if (Input.GetKey(KeyCode.Space)) {
 			//transform.Translate(Vector3.up * speed * Time.deltaTime, Space.World);
 			//GetComponent<Rigidbody>().AddForce(Vector3.up * 10, ForceMode.Impulse);
-			transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x,1,transform.position.z), 0.75f);
+			transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, jumpHeight, transform.position.z), 0.75f);
 
 		} else {
-			transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x,0,transform.position.z), 0.75f);
+			transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, 0, transform.position.z), 0.75f);
 		}
 	}
 }
