@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\BoatCollision.cs" />
      <Compile Include="Assets\Scripts\Float.cs" />
      <Compile Include="Assets\Scripts\MainScript.cs" />
+     <Compile Include="Assets\Scripts\SceneManager.cs" />
      <Compile Include="Assets\Scripts\StoneGeneration.cs" />
      <Compile Include="Assets\Scripts\StoneTranslation.cs" />
      <Compile Include="Assets\Scripts\fishGeneration.cs" />

@@ -6,7 +6,7 @@ public class BoatCollision : MonoBehaviour {
 	private MainScript ms;
 
 	void Start() {
-		ms = GetComponent<MainScript>();
+		ms = GameObject.Find("Brain").GetComponent<MainScript>();
 	}
 
 	void OnCollisionEnter(Collision col) {

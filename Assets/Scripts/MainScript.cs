@@ -10,7 +10,6 @@ public class MainScript : MonoBehaviour {
 	public Rigidbody stone;
 	public Rigidbody tree;
 
-	private fishGeneration fgScript;
 	private StoneGeneration sgScript;
 	private TreeGeneration tgScript;
 
@@ -36,19 +35,26 @@ public class MainScript : MonoBehaviour {
 		collidedStones = 0;
 		collidedTrees = 0;
 
-		fgScript = GetComponent<fishGeneration>();
 		sgScript = GetComponent<StoneGeneration>();
 		tgScript = GetComponent<TreeGeneration>();
 
 		switch (level) {
 			case 1:
-				disableTrees();
+				sgScript.enabled = true;
+				Destroy(tree.gameObject);
 				break;
 			case 2:
-				disableStones();
+				tgScript.enabled = true;
+				Destroy(stone.gameObject);
 				break;
 			case 3:
-				
+				sgScript.enabled = true;
+				tgScript.enabled = true;
+				break;
+			case 4:
+				// include cognitive challenge
+				sgScript.enabled = true;
+				tgScript.enabled = true;
 				break;
 			default:
 				Debug.Log("ERROR: level requested is " + level);
@@ -65,21 +71,6 @@ public class MainScript : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 	
-	}
-
-	void disableFishes() {
-		fgScript.enabled = false;
-		Destroy(fish.gameObject);
-	}
-
-	void disableStones() {
-		sgScript.enabled = false;
-		Destroy(stone.gameObject);
-	}
-
-	void disableTrees() {
-		tgScript.enabled = false;
-		Destroy(tree.gameObject);
 	}
 
 	public void incrementTotalNumberFishes() {

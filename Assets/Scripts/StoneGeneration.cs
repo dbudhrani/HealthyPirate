@@ -24,7 +24,7 @@ public class StoneGeneration : MonoBehaviour {
 	}
 	
 	void Update () {
-
+		Debug.Log("StoneGeneration");
 	}
 
 	IEnumerator generateRandomStone() {
