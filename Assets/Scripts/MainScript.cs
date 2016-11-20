@@ -52,6 +52,8 @@ public class MainScript : MonoBehaviour {
 				Debug.Log("ERROR: level requested is " + level);
 				break;
 		}
+
+        Debug.Log("kukujaku" +  PlayerPrefs.GetInt("levelSelected"));
 	}
 	
 	// Update is called once per frame
