@@ -19,7 +19,6 @@ public class TreeGeneration : MonoBehaviour {
 
 	void Start () {
 		levelCompleted = false;
-		includeCognitiveChallenge = true;
 		int numTrees = Random.Range(minTrees, maxTrees);
 		ms = GetComponent<MainScript>();
 		StartCoroutine(generateRandomTrees(numTrees));
@@ -52,5 +51,9 @@ public class TreeGeneration : MonoBehaviour {
 				ms.incrementTotalNumberTrees();
 			}
 		}
+	}
+
+	public void setIncludeCognitiveChallenge(bool b) {
+		this.includeCognitiveChallenge = b;
 	}
 }

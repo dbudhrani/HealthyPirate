@@ -50,11 +50,12 @@ public class MainScript : MonoBehaviour {
 			case 3:
 				sgScript.enabled = true;
 				tgScript.enabled = true;
+				tgScript.setIncludeCognitiveChallenge(false);
 				break;
 			case 4:
-				// include cognitive challenge
 				sgScript.enabled = true;
 				tgScript.enabled = true;
+				tgScript.setIncludeCognitiveChallenge(true);
 				break;
 			default:
 				Debug.Log("ERROR: level requested is " + level);
