@@ -11,10 +11,14 @@ public class PresicionController : MonoBehaviour {
     // Use this for initialization
     public Vector3 presicionLinePos;
 
+    public float redLineWidth;
+
     //Presicion bar vars
     private float barWidth = 743f;
     private float scaled = 0.5f;
     private float barRange;
+
+    
 
     private float boatRange = 1f;
 
@@ -41,6 +45,8 @@ public class PresicionController : MonoBehaviour {
 
         boatFrom = 0 - boatRange;
         boatTo = boatRange;
+
+        redLineWidth = 29 * scaled;
     }
 	
 	// Update is called once per frame
