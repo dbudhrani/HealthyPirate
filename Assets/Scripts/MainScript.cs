@@ -10,6 +10,8 @@ public class MainScript : MonoBehaviour {
 	public Rigidbody stone;
 	public Rigidbody tree;
 
+	public Rigidbody LowerIntro;
+
 	private StoneGeneration sgScript;
 	private TreeGeneration tgScript;
 
@@ -20,6 +22,9 @@ public class MainScript : MonoBehaviour {
 	private int capturedFishes;
 	private int collidedStones;
 	private int collidedTrees;
+
+
+	public float lifetime;
 
 	// Use this for initialization
 	void Start () {
@@ -41,7 +46,9 @@ public class MainScript : MonoBehaviour {
 		switch (level) {
 			case 1:
 				sgScript.enabled = true;
-				Destroy(tree.gameObject);
+				Destroy (tree.gameObject);
+				Debug.Log ("intro" + LowerIntro);
+				Destroy (LowerIntro.gameObject,lifetime);
 				break;
 			case 2:
 				tgScript.enabled = true;
