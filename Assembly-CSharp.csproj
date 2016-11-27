@@ -56,6 +56,7 @@
      <Compile Include="Assets\KinectView\Scripts\InfraredSourceView.cs" />
      <Compile Include="Assets\KinectView\Scripts\MultiSourceManager.cs" />
      <Compile Include="Assets\MoveBoat.cs" />
+     <Compile Include="Assets\Scenes\CounterdownTimer.cs" />
      <Compile Include="Assets\Scripts\BoatCollision.cs" />
      <Compile Include="Assets\Scripts\Float.cs" />
      <Compile Include="Assets\Scripts\MainScript.cs" />
@@ -66,8 +67,11 @@
      <Compile Include="Assets\Scripts\fishMovement.cs" />
      <Compile Include="Assets\Scripts\kinect_connection\DetectJoints.cs" />
      <Compile Include="Assets\Scripts\kinect_connection\PresicionController.cs" />
+     <Compile Include="Assets\Scripts\kinect_connection\PresicionGreenController.cs" />
      <Compile Include="Assets\TreeGeneration.cs" />
      <Compile Include="Assets\TreeMovement.cs" />
+     <Compile Include="Assets\myTimer.cs" />
+     <Compile Include="Assets\score.cs" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

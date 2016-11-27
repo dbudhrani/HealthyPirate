@@ -6,8 +6,8 @@ public class fishGeneration : MonoBehaviour {
 	public GameObject prefab;
 	public float minX = 10.0f;
 	public float maxX = 12.0f;
-	public float minZ = -1f;
-	public float maxZ = 1f;
+	public float minZ = -3f;
+	public float maxZ = 3f;
 	public float minWaitTime = 2.0f;
 	public float maxWaitTime = 4.0f;
 	public float minScale = 0.005f;
