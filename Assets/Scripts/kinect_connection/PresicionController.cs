@@ -39,9 +39,9 @@ public class PresicionController : MonoBehaviour {
         //init scales, used for calculating the position of the red line
         barRange = barWidth * scaled;
 
-        
-        barFrom = 0 - barRange / 2;
-        barTo = barRange / 2;
+
+        barFrom = -100;// 0 - barRange / 2;
+        barTo = 100;//barRange / 2;
 
         boatFrom = 0 - boatRange;
         boatTo = boatRange;
@@ -55,8 +55,18 @@ public class PresicionController : MonoBehaviour {
         //Debug.Log(boatScript.objectPosition.z);
         //presicionLinePos.x = presicionLinePos.x + boatScript.objectPosition.z;
         float value = boatScript.objectPosition.z;
+       // Debug.Log("Bar range:" + barRange + "Bar from:" + barFrom + "bar To:" + barTo);
         presicionLinePos.x = -remap(value, boatFrom, boatTo, barFrom, barTo);
         //Debug.Log(remap(value, boatFrom, boatTo, barFrom, barTo));
+        //if (presicionLinePos.x > 120 || presicionLinePos.x < -120) {
+        //    Debug.Log("x position" + -presicionLinePos.x);
+        //}
+
+        if (presicionLinePos.x > 180) {
+            presicionLinePos.x = 180;
+        } else if (presicionLinePos.x < -180) {
+            presicionLinePos.x = -180;
+        }
         gameObject.GetComponent<RectTransform>().anchoredPosition = presicionLinePos;
 
     }
