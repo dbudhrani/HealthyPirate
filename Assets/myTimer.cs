@@ -16,6 +16,6 @@ public class myTimer : MonoBehaviour {
 	void Update () {
         playerTimer -= Time.deltaTime;
         timerText.text = playerTimer.ToString("f0");
-        print(playerTimer);
+        //print(playerTimer);
 	}
 }

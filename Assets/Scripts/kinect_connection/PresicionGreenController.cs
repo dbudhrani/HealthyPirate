@@ -48,7 +48,7 @@ public class PresicionGreenController : MonoBehaviour {
 
         moveLimit = (barRange / 2) - (greenLineWidth * scaled/2); //max limit of the position of the green line to one side
 
-        Debug.Log(moveLimit);
+        //Debug.Log(moveLimit);
 
         //InvokeRepeating("changeGreenLinePos", 3.0f, 2.0f); //repeats the method every 2sec
     }
@@ -56,9 +56,9 @@ public class PresicionGreenController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
-        Debug.Log(stoneQueue.ToArray());
+        //Debug.Log(stoneQueue.ToArray());
         //new stone had come close so the greenline needs to be refreshed according to new stone coming
-        if (stoneDequeued.transform.position.x < 15f)
+        if (stoneDequeued.transform.position.x < 24f)
         {
             updateGreenLine(stoneDequeued.transform.position);
             changeStone();
@@ -140,6 +140,6 @@ public class PresicionGreenController : MonoBehaviour {
     void changeStone()
     {
         stoneDequeued = (GameObject)stoneQueue.Dequeue();
-        Debug.Log(stoneDequeued);  
+        //Debug.Log(stoneDequeued);  
     }
 }
