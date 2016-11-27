@@ -40,8 +40,8 @@ public class PresicionController : MonoBehaviour {
         barRange = barWidth * scaled;
 
 
-        barFrom = -100;// 0 - barRange / 2;
-        barTo = 100;//barRange / 2;
+        barFrom = 0 - barRange / 2;
+        barTo = barRange / 2;
 
         boatFrom = 0 - boatRange;
         boatTo = boatRange;
