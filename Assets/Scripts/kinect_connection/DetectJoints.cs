@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Windows.Kinect;
+using System;
 
 public class DetectJoints : MonoBehaviour {
+
+    public bool isBodyTracked = false;
 
 	public GameObject BodySrcManager;
 
@@ -67,6 +70,9 @@ public class DetectJoints : MonoBehaviour {
 			}
 
 			if (body.IsTracked) {
+
+                bodyIsTracked();
+
                 if (levelSelected == 1 && detectSides) {
                   
                     var pos = body.Joints[TrackedJoint].Position;
@@ -80,11 +86,11 @@ public class DetectJoints : MonoBehaviour {
                 if(levelSelected == 2 && detectJump)
                 {
                     var pos = body.Joints[TrackedJoint].Position;
-                    Debug.Log(-pos.Y);
+                    //Debug.Log(-pos.Y);
 
                     if (-pos.Y < jumpMin)
                     {
-                        newValJump = 1f;
+                        newValJump = 2f;
                     }
                     else {
                         newValJump = 0f;
@@ -98,4 +104,9 @@ public class DetectJoints : MonoBehaviour {
                }     
         }
 	}
+
+    private void bodyIsTracked()
+    {
+        isBodyTracked = true;
+    }
 }

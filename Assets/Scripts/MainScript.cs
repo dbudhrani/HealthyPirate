@@ -4,72 +4,101 @@ using System;
 
 public class MainScript : MonoBehaviour {
 
-	public int level; // level 1 = upper-body; level 2 = lower-body; level 3 = full body
+    public int level; // level 1 = upper-body; level 2 = lower-body; level 3 = full body
 
-	public Rigidbody fish;
-	public Rigidbody stone;
-	public Rigidbody tree;
+    public Rigidbody fish;
+    public Rigidbody stone;
+    public Rigidbody tree;
 
-	public Rigidbody LowerIntro;
+    public Rigidbody LowerIntro;
 
-	private StoneGeneration sgScript;
-	private TreeGeneration tgScript;
+    public bool hasGameStarted;
 
-	private int numFishes;
-	private int numStones;
-	private int numTrees;
+    private StoneGeneration sgScript;
+    private TreeGeneration tgScript;
 
-	private int capturedFishes;
-	private int collidedStones;
-	private int collidedTrees;
+    private int numFishes;
+    private int numStones;
+    private int numTrees;
 
+    private int capturedFishes;
+    private int collidedStones;
+    private int collidedTrees;
 
-	public float lifetime;
+    private int gameLevel;
 
-	// Use this for initialization
-	void Start () {
+    public float lifetime;
+
+    //Timer
+    private myTimer timerScript;
+    public GameObject textTimerObject;
+
+    //InfoText
+    private SyncWaitController infoTextScript;
+    public GameObject infoTextObject;
+
+    //Kinect 
+    private DetectJoints kinectScript;
+    public GameObject boatController;
+
+    // Use this for initialization
+    void Start() {
 
         setLevel();
-		Debug.Log("Level = " + level);
+        Debug.Log("Level = " + level);
 
-		numFishes = 0;
-		numStones = 0;
-		numTrees = 0;
+        numFishes = 0;
+        numStones = 0;
+        numTrees = 0;
 
-		capturedFishes = 0;
-		collidedStones = 0;
-		collidedTrees = 0;
+        capturedFishes = 0;
+        collidedStones = 0;
+        collidedTrees = 0;
 
-		sgScript = GetComponent<StoneGeneration>();
-		tgScript = GetComponent<TreeGeneration>();
+        sgScript = GetComponent<StoneGeneration>();
+        tgScript = GetComponent<TreeGeneration>();
 
-		switch (level) {
-			case 1:
-				sgScript.enabled = true;
-				Destroy (tree.gameObject);
-				Debug.Log ("intro" + LowerIntro);
-				Destroy (LowerIntro.gameObject,lifetime);
-				break;
-			case 2:
-				tgScript.enabled = true;
-				Destroy(stone.gameObject);
-				break;
-			case 3:
-				sgScript.enabled = true;
-				tgScript.enabled = true;
-				tgScript.setIncludeCognitiveChallenge(false);
-				break;
-			case 4:
-				sgScript.enabled = true;
-				tgScript.enabled = true;
-				tgScript.setIncludeCognitiveChallenge(true);
-				break;
-			default:
-				Debug.Log("ERROR: level requested is " + level);
-				break;
-		}
+        //set dynamically timer script
+        timerScript = textTimerObject.GetComponent<myTimer>();
 
-	}
+        //set dynamically info script
+        infoTextScript = infoTextObject.GetComponent<SyncWaitController>();
+
+        //set kinect script
+        kinectScript = boatController.GetComponent<DetectJoints>();
+
+        hasGameStarted = true;
+    }
+
+    private void startGame()
+    {
+        switch (level)
+        {
+            case 1:
+                sgScript.enabled = true;
+                Destroy(tree.gameObject);
+                Debug.Log("intro" + LowerIntro);
+                Destroy(LowerIntro.gameObject, lifetime);
+                break;
+            case 2:
+                tgScript.enabled = true;
+                Destroy(stone.gameObject);
+                break;
+            case 3:
+                sgScript.enabled = true;
+                tgScript.enabled = true;
+                tgScript.setIncludeCognitiveChallenge(false);
+                break;
+            case 4:
+                sgScript.enabled = true;
+                tgScript.enabled = true;
+                tgScript.setIncludeCognitiveChallenge(true);
+                break;
+            default:
+                Debug.Log("ERROR: level requested is " + level);
+                break;
+        }
+    }
 
     private void setLevel()
     {
@@ -78,7 +107,16 @@ public class MainScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-	
+        
+        if (kinectScript.isBodyTracked && hasGameStarted)
+        {
+            startGame();
+            timerScript.setIsGameStart(true);
+            infoTextScript.setVisibility(false);
+
+            //start the game only once
+            hasGameStarted = false;
+        }
 	}
 
 	public void incrementTotalNumberFishes() {
