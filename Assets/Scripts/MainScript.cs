@@ -39,7 +39,12 @@ public class MainScript : MonoBehaviour {
 
     //Kinect 
     private DetectJoints kinectScript;
-    public GameObject boatController;
+    public GameObject boatControllerJump;
+    public GameObject boatControllerSide;
+
+    //PresicionGreenLine
+    public GameObject greenLine;
+    PresicionGreenController greenScript;
 
     // Use this for initialization
     void Start() {
@@ -65,7 +70,19 @@ public class MainScript : MonoBehaviour {
         infoTextScript = infoTextObject.GetComponent<SyncWaitController>();
 
         //set kinect script
-        kinectScript = boatController.GetComponent<DetectJoints>();
+        if(level == 1)
+        {
+            kinectScript = boatControllerSide.GetComponent<DetectJoints>();
+        }
+
+        if(level == 2)
+        {
+            kinectScript = boatControllerJump.GetComponent<DetectJoints>();
+        }
+
+        //set green line
+        greenScript = greenLine.GetComponent<PresicionGreenController>();
+
 
         hasGameStarted = true;
     }
@@ -76,9 +93,10 @@ public class MainScript : MonoBehaviour {
         {
             case 1:
                 sgScript.enabled = true;
-                Destroy(tree.gameObject);
-                Debug.Log("intro" + LowerIntro);
-                Destroy(LowerIntro.gameObject, lifetime);
+                //Destroy(tree.gameObject);
+                //Debug.Log("intro" + LowerIntro);
+                //Destroy(LowerIntro.gameObject, lifetime);
+                greenScript.setHasGameStarted(true);
                 break;
             case 2:
                 tgScript.enabled = true;
@@ -114,8 +132,10 @@ public class MainScript : MonoBehaviour {
             timerScript.setIsGameStart(true);
             infoTextScript.setVisibility(false);
 
+            
             //start the game only once
             hasGameStarted = false;
+            
         }
 	}
 

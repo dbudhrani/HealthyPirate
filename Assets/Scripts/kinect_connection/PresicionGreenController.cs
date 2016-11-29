@@ -6,6 +6,10 @@ public class PresicionGreenController : MonoBehaviour {
 
     public Vector3 presicionGreenPos;
 
+    //game start bools
+    public bool hasGameStarted;
+    private bool firstInitPass;
+
     //Redline 
     public PresicionController redLineScript;
     public GameObject redLineObject;
@@ -28,8 +32,8 @@ public class PresicionGreenController : MonoBehaviour {
     private Queue stoneQueue;
     private GameObject stoneDequeued;
 
-    IEnumerator Start () {
-        yield return new WaitForSeconds(6f);
+    void Start () {
+        
         presicionGreenPos = gameObject.GetComponent<RectTransform>().anchoredPosition;
 
         //get the script from redline gameobject
@@ -37,10 +41,6 @@ public class PresicionGreenController : MonoBehaviour {
 
         //get the stone generation script from brain
         stoneGenScript = brain.GetComponent<StoneGeneration>();
-
-        stoneQueue = stoneGenScript.stoneQueue;
-      
-        changeStone(); //get the first stone - init
 
         //init scales, used for calculating the position of the red line
         barRange = barWidth * scaled;
@@ -51,26 +51,43 @@ public class PresicionGreenController : MonoBehaviour {
         //Debug.Log(moveLimit);
 
         //InvokeRepeating("changeGreenLinePos", 3.0f, 2.0f); //repeats the method every 2sec
+
+        hasGameStarted = false;
+        firstInitPass = true;
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+
+        //inits the first stones
+        if (hasGameStarted && firstInitPass)
+        {
+            stoneQueue = stoneGenScript.stoneQueue;
+            wait();
+            changeStone(); //get the first stone - init
+            firstInitPass = false;
+
+            Debug.Log("PresicionLine starts");
+        }
+
         //Debug.Log(stoneQueue.ToArray());
         //new stone had come close so the greenline needs to be refreshed according to new stone coming
-        if (stoneDequeued.transform.position.x < 24f)
-        {
-            updateGreenLine(stoneDequeued.transform.position);
-            changeStone();
+        if (hasGameStarted) { 
+            if (stoneDequeued.transform.position.x < 24f)
+            {
+                updateGreenLine(stoneDequeued.transform.position);
+                changeStone();
+            }
+
+            redLinePos = redLineScript.presicionLinePos;
+
+            if (isRedLineInGreen(redLinePos.x))
+            {
+                //TODO - add point that user had reached the greenline
+            }
         }
 
-        redLinePos = redLineScript.presicionLinePos;
-
-        if (isRedLineInGreen(redLinePos.x))
-        {
-            //TODO - add point that user had reached the greenline
-        }
-        
     }
 
     private void updateGreenLine(Vector3 stonePos)
@@ -92,11 +109,11 @@ public class PresicionGreenController : MonoBehaviour {
         if (stonePos.z > leftStoneMiddle && stonePos.z < rightStoneMiddle) {
             if(UnityEngine.Random.value < 0.5f)
             {
-                newPos = -90;
+                newPos = -90f;
             }
             else
             {
-                newPos = 90;
+                newPos = 90f;
             }
         }
 
@@ -141,5 +158,19 @@ public class PresicionGreenController : MonoBehaviour {
     {
         stoneDequeued = (GameObject)stoneQueue.Dequeue();
         //Debug.Log(stoneDequeued);  
+    }
+
+    public void setHasGameStarted(bool val)
+    {
+        Debug.Log("Game has started for presicion green;i");
+        hasGameStarted = val;
+        firstInitPass = val;
+    }
+
+    IEnumerator wait()
+    {
+
+        yield return new WaitForSeconds(6f);
+        
     }
 }

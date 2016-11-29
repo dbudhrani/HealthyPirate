@@ -5,7 +5,7 @@ using System;
 
 public class DetectJoints : MonoBehaviour {
 
-    public bool isBodyTracked = false;
+    public bool isBodyTracked;
 
 	public GameObject BodySrcManager;
 
@@ -38,14 +38,15 @@ public class DetectJoints : MonoBehaviour {
         if (PlayerPrefs.GetInt("levelSelected") == 0)
         {
             levelSelected = 1;
+           
         }
         else {
             levelSelected = PlayerPrefs.GetInt("levelSelected");
         }
 
-        
 
-		if (BodySrcManager == null) {
+
+        if (BodySrcManager == null) {
 			Debug.Log ("Assign tame object with body source manager");
 		} else {
 			bodyManager = BodySrcManager.GetComponent<BodySourceManager> ();
