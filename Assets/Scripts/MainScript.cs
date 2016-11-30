@@ -16,6 +16,7 @@ public class MainScript : MonoBehaviour {
 
     private StoneGeneration sgScript;
     private TreeGeneration tgScript;
+    private fishGeneration fgScript;
 
     private int numFishes;
     private int numStones;
@@ -62,6 +63,7 @@ public class MainScript : MonoBehaviour {
 
         sgScript = GetComponent<StoneGeneration>();
         tgScript = GetComponent<TreeGeneration>();
+        fgScript = GetComponent<fishGeneration>();
 
         //set dynamically timer script
         timerScript = textTimerObject.GetComponent<myTimer>();
@@ -76,6 +78,11 @@ public class MainScript : MonoBehaviour {
         }
 
         if(level == 2)
+        {
+            kinectScript = boatControllerJump.GetComponent<DetectJoints>();
+        }
+
+        if (level == 3)
         {
             kinectScript = boatControllerJump.GetComponent<DetectJoints>();
         }
@@ -97,19 +104,24 @@ public class MainScript : MonoBehaviour {
                 //Debug.Log("intro" + LowerIntro);
                 //Destroy(LowerIntro.gameObject, lifetime);
                 greenScript.setHasGameStarted(true);
+                fgScript.enabled = true;
                 break;
             case 2:
                 tgScript.enabled = true;
+                fgScript.enabled = true;
                 Destroy(stone.gameObject);
                 break;
             case 3:
                 sgScript.enabled = true;
                 tgScript.enabled = true;
+                fgScript.enabled = true;
+                greenScript.setHasGameStarted(true);
                 tgScript.setIncludeCognitiveChallenge(false);
                 break;
             case 4:
                 sgScript.enabled = true;
                 tgScript.enabled = true;
+                fgScript.enabled = true;
                 tgScript.setIncludeCognitiveChallenge(true);
                 break;
             default:
@@ -131,15 +143,39 @@ public class MainScript : MonoBehaviour {
             startGame();
             timerScript.setIsGameStart(true);
             infoTextScript.setVisibility(false);
-
             
             //start the game only once
             hasGameStarted = false;
             
         }
+
+        //players time is up
+        if(timerScript.getPlayerTime() < 0)
+        {
+            saveScore();
+            if(level == 1)
+            {
+                Application.LoadLevel(3);
+            }
+
+            if(level == 2)
+            {
+                Application.LoadLevel(4);
+            }
+
+
+        }
 	}
 
-	public void incrementTotalNumberFishes() {
+    //saves players score
+    private void saveScore()
+    {
+        PlayerPrefs.SetInt("capturedFish", capturedFishes);
+        PlayerPrefs.SetInt("avoidedStones", numStones - collidedStones);
+        PlayerPrefs.SetInt("avoidedTrees", numTrees - collidedTrees);
+    }
+
+    public void incrementTotalNumberFishes() {
 		numFishes++;
 	}
 

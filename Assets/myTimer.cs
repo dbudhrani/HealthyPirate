@@ -21,9 +21,14 @@ public class myTimer : MonoBehaviour {
             playerTimer -= Time.deltaTime;
             timerText.text = playerTimer.ToString("f0");
             //print(playerTimer);
+            
         }
     }
 
+    public float getPlayerTime()
+    {
+        return playerTimer;
+    }
     public void setIsGameStart(bool val)
     {
         isGameStart = val;

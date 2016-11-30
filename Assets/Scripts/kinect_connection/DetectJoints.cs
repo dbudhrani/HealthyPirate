@@ -33,6 +33,9 @@ public class DetectJoints : MonoBehaviour {
 
     private float newValJump = 0;
 
+    public GameObject boatHelper;
+    private BoatPositionHelper boatHelperScript;
+
     void Start () {
 
         if (PlayerPrefs.GetInt("levelSelected") == 0)
@@ -51,6 +54,8 @@ public class DetectJoints : MonoBehaviour {
 		} else {
 			bodyManager = BodySrcManager.GetComponent<BodySourceManager> ();
 		}
+
+        boatHelperScript =  boatHelper.GetComponent<BoatPositionHelper>();
 	}
 	
 	// Update is called once per frame
@@ -91,7 +96,7 @@ public class DetectJoints : MonoBehaviour {
 
                     if (-pos.Y < jumpMin)
                     {
-                        newValJump = 2f;
+                        newValJump = 3f;
                     }
                     else {
                         newValJump = 0f;
@@ -99,6 +104,42 @@ public class DetectJoints : MonoBehaviour {
                         
                     Vector3 newPos = new Vector3(0, newValJump, 0);
                     gameObject.transform.position = newPos;
+                }
+
+                if(levelSelected == 3)
+                {
+
+                    float newValJump  = 0;
+
+                    if (detectJump)
+                    {
+                        var pos = body.Joints[TrackedJoint].Position;
+                        //Debug.Log(-pos.Y);
+                        
+
+                        if (-pos.Y < jumpMin)
+                        {
+                            newValJump = 3f;
+                        }
+                        else
+                        {
+                            newValJump = 0f;
+                        }
+
+                        boatHelperScript.boatPosition.y = newValJump;
+                        
+                    }
+
+                    if (detectSides)
+                    {
+                        var pos = body.Joints[TrackedJoint].Position;
+                        //upper body is selected
+                        boatHelperScript.boatPosition.z = -pos.X * multiplier;
+                        
+                    }
+
+                    gameObject.transform.position = boatHelperScript.boatPosition;
+                    
                 }
 
 

@@ -13,6 +13,7 @@ public class SceneManager : MonoBehaviour {
 
     void Start()
     {
+        //start screen buttons
         Button btn = startButton.GetComponent<Button>();
         btn.onClick.AddListener(StartOnClick);
 
@@ -24,6 +25,8 @@ public class SceneManager : MonoBehaviour {
 
         Button wholebtn = wholeButton.GetComponent<Button>();
         wholebtn.onClick.AddListener(setWholePart);
+
+        //final screen buttons
     }
 
     void StartOnClick()
