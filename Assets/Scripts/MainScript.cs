@@ -173,6 +173,9 @@ public class MainScript : MonoBehaviour {
         PlayerPrefs.SetInt("capturedFish", capturedFishes);
         PlayerPrefs.SetInt("avoidedStones", numStones - collidedStones);
         PlayerPrefs.SetInt("avoidedTrees", numTrees - collidedTrees);
+
+        float presicionCalc = greenScript.numOfGreenLineGenerated / greenScript.numOfReachedGreenLine;
+        PlayerPrefs.SetFloat("presicion", presicionCalc);
     }
 
     public void incrementTotalNumberFishes() {

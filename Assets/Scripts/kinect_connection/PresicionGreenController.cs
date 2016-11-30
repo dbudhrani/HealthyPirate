@@ -32,6 +32,11 @@ public class PresicionGreenController : MonoBehaviour {
     private Queue stoneQueue;
     private GameObject stoneDequeued;
 
+    public float numOfReachedGreenLine;
+    public float numOfGreenLineGenerated;
+
+    private bool presicionFlag;
+
     void Start () {
         
         presicionGreenPos = gameObject.GetComponent<RectTransform>().anchoredPosition;
@@ -54,6 +59,11 @@ public class PresicionGreenController : MonoBehaviour {
 
         hasGameStarted = false;
         firstInitPass = true;
+
+        numOfReachedGreenLine = 0f;
+        numOfGreenLineGenerated = 0f;
+
+        presicionFlag = true;
         
     }
 	
@@ -78,13 +88,17 @@ public class PresicionGreenController : MonoBehaviour {
             {
                 updateGreenLine(stoneDequeued.transform.position);
                 changeStone();
+                numOfGreenLineGenerated += 1f;
+                presicionFlag = true;
             }
 
             redLinePos = redLineScript.presicionLinePos;
 
-            if (isRedLineInGreen(redLinePos.x))
+            if (isRedLineInGreen(redLinePos.x) && presicionFlag)
             {
                 //TODO - add point that user had reached the greenline
+                numOfReachedGreenLine += 1f;
+                presicionFlag = false;
             }
         }
 

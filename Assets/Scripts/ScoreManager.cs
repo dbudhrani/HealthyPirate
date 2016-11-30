@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour {
     public Text presNumber;
     public Text treeNumber;
 
+
     // Use this for initialization
     void Start () {
         //fishNumber = GetComponent<Text>();
@@ -23,6 +24,10 @@ public class ScoreManager : MonoBehaviour {
             treeNumber.text = PlayerPrefs.GetInt("avoidedTrees").ToString();
         }
 
+        if(presNumber != null)
+        {
+           // presNumber.text = (PlayerPrefs.GetFloat("presicion")*100).ToString() + "%";
+        }
         fishNumber.text = PlayerPrefs.GetInt("capturedFish").ToString();
         
     }
